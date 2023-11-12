@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{template "metatags" .}}
+    {{template "css" .}}
+    {{template "js" .}}
+</head>
+
+<body class="bg-gray-900 text-white h-full">
+    <div class="grid grid-rows-[auto_1fr_auto] relative w-screen min-h-screen m-auto">
+
+        {{ template "stars" }}
+        {{ template "navbar" .}}
+        {{ template "section" .}}
+        {{ template "tutorials" .}}
+        <div class="flex">
+            {{ template "featured-course" .}}
+            {{ template "newsletter" .}}
+        </div>
+        {{ template "community" .}}
+        {{ template "recent-posts" .}}
+
+    </div>
+</body>
+
+</html>
+
+{{ define "tutorials" }}
+<section class="z-0">
+    <div class="flex flex-col items-center justify-center">
+        <h3 class="text-4xl font-extrabold text-center text-orange-500 m-0 sm:text-left py-12">Tutorials By Tech</h3>
+        <div class="flex items-center justify-center">
+            <ul class="flex space-x-8">
+                {{ range .Tutorials }}
+                <li
+                    class="flex bg-blue-500 rounded-lg px-8 py-2 shadow-lg hover:bg-blue-600 text-yellow-500 hover:text-yellow-600">
+                    <a href="{{ .Link }}" class="flex whitespace-nowrap p-1 font-bold text-xl items-center">
+                        <span class="mx-4">{{ .Name }}</span>
+                        {{ if eq .Image "react-icon" }}
+                        {{ template "react-icon" . }}
+                        {{ else if eq .Image "nextjs-icon" }}
+                        {{ template "nextjs-icon" . }}
+                        {{ else if eq .Image "astrojs-icon" }}
+                        {{ template "astrojs-icon" . }}
+                        {{ end }}
+                    </a>
+                </li>
+                {{ end }}
+            </ul>
+        </div>
+    </div>
+</section>
+{{ end }}
+
+{{ define "community" }}
+<section class="z-0">
+    <div class="flex flex-col items-center justify-center">
+        <h3 class="text-4xl font-extrabold text-center text-orange-500 m-0 sm:text-left py-12">Community</h3>
+        <div class="flex items-center justify-center">
+            <ul class="flex space-x-8">
+                {{ range .Community }}
+                <li
+                    class="flex border border-indigo-700 rounded-lg px-8 py-2 shadow-lg text-yellow-500 hover:curor-pointer">
+                    <a href="{{ .Link }}"
+                        class="group flex whitespace-nowrap p-1 font-bold text-xl items-center hover:text-yellow-600">
+                        {{ if eq .Image "xwitter-icon" }}
+                        {{ template "xwitter-icon" dict "Hover" true . }}
+                        {{ else if eq .Image "youtube-icon" }}
+                        {{ template "youtube-icon" dict "Hover" true . }}
+                        {{ else if eq .Image "discord-icon" }}
+                        {{ template "discord-icon" dict "Hover" true . }}
+                        {{ else if eq .Image "github-icon" }}
+                        {{ template "github-icon" dict "Hover" true . }}
+                        {{ end }}
+                        <span class="mx-4">{{ .Name }}</span>
+                    </a>
+                </li>
+                {{ end }}
+            </ul>
+        </div>
+    </div>
+</section>
+{{ end }}
+
+{{ define "featured-course" }}
+<div class="relative mt-8 rounded-lg p-4 text-left no-underline items-center w-3/4">
+    <span class="flex items-center justify-between">
+        <h3 class="text-3xl font-extrabold text-center text-orange-500 m-0 sm:text-left">Featured Course</h3>
+        <a href="{{ .Course.Link }}"
+            class="text-lg font-bold text-center text-yellow-500 m-0 sm:text-left hover:text-yellow-600 hover:underline">View
+            all courses</a>
+    </span>
+    <img class="mt-2" src="{{ .Course.Image }}" alt="{{ .Course.Name }}" />
+</div>
+{{ end }}
+
+{{ define "newsletter" }}
+<div class="relative mt-8 rounded-lg p-4 text-left no-underline">
+    <span class="flex flex-col items-start justify-between text-start text-white m-0 space-y-4">
+        <h3 class="text-3xl font-extrabold text-orange-500">Newsletter</h3>
+        <p class="text-3xl font-bold">Get new web dev
+            tutorials in your inbox!</p>
+        <p class="text-lg font-medium">
+            Sign up to receive all things WebGameDev and more free content straight to your inbox!
+        </p>
+        <form>
+            <input type="text" class="w-full h-12 rounded-lg bg-gray-100 px-4 mt-4" placeholder="Your Email Address" />
+            <button type="submit" class="h-12 rounded-lg bg-yellow-500 px-4 mt-4 hover:bg-yellow-600">Subscribe</button>
+        </form>
+    </span>
+</div>
+{{ end }}
+
+{{ define "recent-posts" }}
+<section class="z-0">
+    <div class="flex flex-col items-center justify-center">
+        <h3 class="text-4xl font-extrabold text-center text-orange-500 m-0 sm:text-left py-12">Some More Recent Posts
+        </h3>
+        <div class="flex items-center justify-center w-1/2 mx-auto">
+            <ul class="text-white list-none pl-0 z-0">
+                {{ range .RecentPosts }}
+                <li class="my-4 lg:my-10 first:mt-0 last:mb-0">
+                    {{ template "post-card" . }}
+                </li>
+                {{ end }}
+            </ul>
+        </div>
+        <a href="/blog/"
+            class="text-xl font-bold text-center text-yellow-500 m-0 sm:text-left py-12 hover:underline">View all posts
+        </a>
+    </div>
+</section>
+{{ end }}

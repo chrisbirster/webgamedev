@@ -1,0 +1,40 @@
+{{ define "hero" }}
+<div
+  class="relative grid grid-cols-4 gap-x-4 md:grid-cols-8 lg:grid-cols-12 lg:gap-x-6 mx-auto max-w-7xl lg:mb-24 h-auto pt-24 lg:min-h-[40rem] lg:pb-12 lg:mb-64">
+  <div
+    class="col-span-full mb-12 lg:mb-0 flex items-center justify-center lg:col-span-7 lg:col-start-6 lg:-mr-5vw lg:-mt-24 lg:px-0">
+    <img class="h-auto w-full object-contain max-h-75vh" alt="image data" src="{{" hero.jpg"}}" crossorigin="anonymous"
+      style="opacity: 1; transform: none;">
+  </div>
+  <div class="col-span-full pt-6 lg:col-start-1 lg:row-start-1 lg:flex lg:h-full lg:flex-col lg:col-span-5">
+    <div class="flex flex-auto flex-col" style="opacity: 1">
+      <div style="opacity: 1; transform: none">
+        <h2 class="leading-tight text-3xl md:text-4xl text-black dark:text-white">
+          {{ .MainHeading }}
+        </h2>
+        <p class="leading-tight text-xl md:text-2xl text-black dark:text-white">
+          {{ .SubHeading }}
+        </p>
+      </div>
+      <div class="mt-14 flex flex-col space-y-4" style="opacity: 1; transform: none">
+        <div class="mr-auto flex flex-col gap-4">
+          {{ range .CTAButtons }}
+          <a class="group relative inline-flex text-lg font-medium focus:outline-none opacity-100 disabled:opacity-50 transition"
+            href="{{ .Href }}">
+            <div
+              class="focus-ring absolute inset-0 transform rounded-full opacity-100 transition disabled:opacity-50 bg-indigo-500 hover:bg-indigo-700">
+            </div>
+            <div
+              class="relative flex h-full w-full items-center justify-center whitespace-nowrap text-white space-x-5 px-11 py-6 rounded-full bg-indigo-500 hover:bg-indigo-700">
+              {{ .Text }}
+            </div>
+          </a>
+          {{ end }}
+        </div>
+        {{template "introLink" .Data.IntroLink}}
+      </div>
+    </div>
+    {{/* Additional content here */}}
+  </div>
+</div>
+{{ end }}

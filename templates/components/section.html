@@ -1,0 +1,124 @@
+{{ define "section" }}
+<section class="w-full py-8 my-12">
+    {{ block "section-content" . }}{{ end }}
+</section>
+{{ end }}
+
+{{ define "section-content" }}
+{{ template "galaxy-cloud" }}
+{{ template "container" .}}
+{{ end }}
+
+{{ define "container" }}
+<div class="container px-4 mx-auto md:px-8">
+    {{ block "container-content" . }}{{ end }}
+</div>
+{{end}}
+
+{{ define "container-content" }}
+<div class="flex flex-col md:flex-row">
+    <div class="text-xs w-full flex-shrink-0 order-2 md:order-1 md:w-2/3 lg:text-base xl:w-3/5">
+        <div class="mb-0">
+            {{ template "heading" .}}
+            {{ template "posts" .}}
+        </div>
+    </div>
+</div>
+{{ end }}
+
+{{ define "heading" }}
+<span
+    class="flex flex-col items-center justify-center w-full sm:flex-row sm:justify-between text-xl mb-8 text-orange-600">
+    {{ template "heading-component" "Latest"}}
+</span>
+{{ end }}
+
+{{ define "heading-component" }}
+<h2 class="text-3xl w-full font-bold text-center m-0 sm:text-left">{{ . }}</h2>
+{{ end }}
+
+{{ define "post-card-metadata" }}
+<ul class="flex flex-col flex-wrap items-center text-white text-opacity-90 uppercase list-none p-0 m-0 sm:flex-row">
+    {{ if .Arthor }}
+    <li class="flex items-center my-1 sm:mx-4 sm:my-2">
+        <address class="flex items-center">
+            By <a href="{{ .Arthor.Link }}" rel="author" class="ml-1 hover:text-gray-50">{{ .Arthor.Name }}</a>
+        </address>
+    </li>
+    {{ end }}
+
+    <!-- Date -->
+    <li class="mx-2 my-1 sm:mx-4 sm:my-2">
+        <time pubdate="pubdate" datetime="{{ .Date }}" class="m-0">{{ .Date }}</time>
+    </li>
+
+    {{ if .Categories }}
+    <li class="mx-2 my-1 sm:mx-4 sm:my-2">
+        <ul class="flex flex-wrap space-x-4">
+            {{ range .Categories }}
+            <li>
+                <a href="#"
+                    class="block whitespace-nowrap p-1 text-yellow-500 font-extrabold text-lg hover:text-yellow-600">
+                    {{ . }}
+                </a>
+            </li>
+            {{ end }}
+        </ul>
+    </li>
+    {{ end }}
+
+</ul>
+<ul class="flex flex-col flex-wrap items-center text-white text-opacity-90 uppercase list-none p-0 m-0 sm:flex-row">
+    {{ if .Tags }}
+    <li class="mx-2 my-1 sm:mx-4 sm:my-2">
+        <ul class="flex flex-wrap space-x-4">
+            {{ range .Tags }}
+            <li>
+                <a href="#"
+                    class="block whitespace-nowrap p-1 text-purple-500 text-md hover:text-purple-600 hover:cursor-pointer">
+                    {{ . }}
+                </a>
+            </li>
+            {{ end }}
+        </ul>
+    </li>
+    {{ end }}
+</ul>
+{{ end }}
+
+{{ define "post-card" }}
+<div class="relative {{ .Classes }} rounded-lg p-4 text-left no-underline items-center">
+    <a href="#" class="no-underline hover:text-yellow-500">
+        <h3 class="text-4xl font-bold m-0 mb-1.5">
+            {{ .Title }}
+        </h3>
+    </a>
+    {{ if .MetaData }}
+    <div class="mt-[-0.8rem] mr-[-0.4rem] mb-[0.4rem] ml-[-0.4rem] sm:mr-[-0.8rem] sm:ml-[-0.8rem]">
+        {{ template "post-card-metadata" .MetaData }}
+    </div>
+    {{ end }}
+    <div class="text-white text-opacity-90 text-2xl font-normal mt-1 mb-0 items-center px-2">
+        <p class="first:mt-0 last:mb-0">
+            {{ .Description }}
+        </p>
+    </div>
+</div>
+{{ end }}
+
+{{ define "posts" }}
+<ul class="relative list-none pl-0 z-0">
+    {{ range .Posts }}
+    <li class="my-8 lg:my-20 first:mt-0 last:mb-0">
+        {{ template "post-card" . }}
+    </li>
+    {{ end }}
+    <div
+        class="flex items-center -mt-10 justify-center bg-yellow-500 rounded-lg w-44 h-12 hover:bg-yellow-600 hover:cursor-pointer">
+        <a href="/blog" class="slide flex text-2xl font-bold text-black items-center">
+            <span>Learn How</span>
+            {{ template "arrow-right-icon" dict "Hover" true . }}
+        </a>
+    </div>
+</ul>
+{{ end }}

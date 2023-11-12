@@ -1,0 +1,12 @@
+@keyframes arrow-slide {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(10px); /* Adjust the value for more or less movement */
+    }
+}
+
+.slide:hover svg {
+    animation: arrow-slide 1.5s linear infinite;
+}
