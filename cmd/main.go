@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/chrisbirster/webgamedev/pkg/logger"
+	"github.com/chrisbirster/webgamedev/pkg/renderer"
 	"github.com/chrisbirster/webgamedev/pkg/routes"
-	"github.com/chrisbirster/webgamedev/pkg/template"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -14,12 +14,7 @@ func main() {
 	e.Use(middleware.Recover())
 	e.Use(logger.NewLoggerWithConfig())
 
-	renderer, err := template.NewTemplateRenderer()
-	if err != nil {
-		// Logger.LogAttrs(context.Background(), slog.LevelError, "TEMPLATE", slog.String("err", err.Error()))
-		e.Logger.Errorf("Error creating template renderer: %v", err)
-	}
-	e.Renderer = renderer
+	e.Renderer = renderer.NewTemplateRenderer()
 
 	// static files
 	e.Static("/css", "css")

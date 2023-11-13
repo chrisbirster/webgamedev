@@ -13,7 +13,7 @@ func HandleBlogIndex(c echo.Context) error {
 		Name:        "<WGD/>",
 		MainHeading: "Welcome to my website!",
 		SubHeading:  "This is a subheader",
-		Title:       "My Website",
+		Title:       "WebGameDev",
 		NavLinks: []models.Link{
 			{Name: "Courses", Path: "/", IsCurrentPage: true},
 			{Name: "Books", Path: "/about", IsCurrentPage: false},
@@ -87,11 +87,6 @@ func HandleBlogIndex(c echo.Context) error {
 			},
 		},
 	}
-
-	c.Logger().Infof("DATA: %v", data)
-	if err := c.Render(http.StatusOK, "blog.html", data); err != nil {
-		c.Logger().Error(err)
-		return err
-	}
-	return nil
+	c.Logger().Infof("about to call c.Render with DATA: %v", data)
+	return c.Render(http.StatusOK, "blog", data)
 }

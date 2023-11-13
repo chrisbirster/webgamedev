@@ -22,7 +22,7 @@ func HandleIndex(c echo.Context) error {
 		Name:        "<WGD/>",
 		MainHeading: "Welcome to my website!",
 		SubHeading:  "This is a subheader",
-		Title:       "My Website",
+		Title:       "WebGameDev",
 		Posts: []models.Post{
 			{
 				Title:       "Extend Vite's Config. Customize Your Development Experience.",
@@ -57,7 +57,7 @@ func HandleIndex(c echo.Context) error {
 		},
 		Course: models.Course{
 			Name:  "Vite Custom Config Plugin",
-			Link:  "#",
+			Link:  "/course/htmx-from-scratch",
 			Image: "/static/youtube-thumbnail-vite-config-plugin.svg",
 		},
 		RecentPosts: []models.Post{
@@ -129,10 +129,6 @@ func HandleIndex(c echo.Context) error {
 		},
 	}
 
-	c.Logger().Infof("DATA: %v", data)
-	if err := c.Render(http.StatusOK, "home.html", data); err != nil {
-		c.Logger().Error(err)
-		return err
-	}
-	return nil
+	c.Logger().Infof("about to call c.Render with DATA: %v", data)
+	return c.Render(http.StatusOK, "home", data)
 }
