@@ -3,12 +3,21 @@ package routes
 import (
 	"net/http"
 
-	"github.com/chrisbirster/webgamedev/models"
+	"github.com/chrisbirster/webgamedev/pkg/markdown"
+	"github.com/chrisbirster/webgamedev/pkg/models"
 
 	"github.com/labstack/echo/v4"
 )
 
 func HandleIndex(c echo.Context) error {
+	// markdown content
+	ligma, err := markdown.ParseMarkdownFile("content/emails-with-react.md")
+	if err != nil {
+		c.Logger().Errorf("Error parsing markdown file: %v", err)
+	}
+	c.Logger().Infof("Metadata: %v", ligma.Metadata)
+	c.Logger().Infof("Markdown: %v", ligma.Markdown)
+
 	data := models.Page{
 		Name:        "<WGD/>",
 		MainHeading: "Welcome to my website!",

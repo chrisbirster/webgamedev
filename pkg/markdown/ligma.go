@@ -1,26 +1,34 @@
-package main
+package markdown
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"regexp"
 	"strings"
 
 	"gopkg.in/yaml.v2"
 )
 
-type Metadata struct {
-	Title       string   `yaml:"title"`
-	Author      string   `yaml:"author"`
-	Tags        []string `yaml:"tags"`
-	Category    []string `yaml:"category"`
-	Created     string   `yaml:"created"`
-	Published   string   `yaml:"published"`
-	Updated     string   `yaml:"updated"`
-	StarterRepo string   `yaml:"starter-repo"`
-	Demo        string   `yaml:"demo"`
-	Video       string   `yaml:"video"`
-}
+type (
+	Metadata struct {
+		Title       string   `yaml:"title"`
+		Author      string   `yaml:"author"`
+		Tags        []string `yaml:"tags"`
+		Category    []string `yaml:"category"`
+		Created     string   `yaml:"created"`
+		Published   string   `yaml:"published"`
+		Updated     string   `yaml:"updated"`
+		StarterRepo string   `yaml:"starter-repo"`
+		Demo        string   `yaml:"demo"`
+		Video       string   `yaml:"video"`
+	}
+
+	// Lightweight Interpreter for Go Markdown Applications
+	Ligma struct {
+		Markdown string
+		Metadata Metadata
+	}
+)
 
 func extractMetadata(content string) (Metadata, string) {
 	re := regexp.MustCompile(`(?s)---\n(.*?)\n---`)
@@ -86,14 +94,12 @@ func parseMarkdown(content string) string {
 	return strings.Join(parsedLines, "\n")
 }
 
-func ParseMarkdownFile(filePath string) (Metadata, string, error) {
-	content, err := ioutil.ReadFile(filePath)
+func ParseMarkdownFile(filePath string) (Ligma, error) {
+	content, err := os.ReadFile(filePath)
 	if err != nil {
-		return Metadata{}, "", err
+		return Ligma{}, err
 	}
-
 	meta, mdContent := extractMetadata(string(content))
 	htmlContent := parseMarkdown(mdContent)
-
-	return meta, htmlContent, nil
+	return Ligma{Markdown: htmlContent, Metadata: meta}, nil
 }

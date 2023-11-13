@@ -1,4 +1,4 @@
-package main
+package template
 
 import (
 	"encoding/json"
@@ -28,6 +28,12 @@ func NewTemplateRenderer() (*TemplateRenderer, error) {
 
 	// Parse templates in the 'layouts' subdirectory.
 	_, err = tmpl.ParseGlob("templates/layouts/*.html")
+	if err != nil {
+		return nil, err
+	}
+
+	// Parse templates in the 'pages' subdirectory.
+	_, err = tmpl.ParseGlob("templates/pages/*.html")
 	if err != nil {
 		return nil, err
 	}

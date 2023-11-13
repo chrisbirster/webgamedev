@@ -3,7 +3,7 @@ package routes
 import (
 	"net/http"
 
-	"github.com/chrisbirster/webgamedev/models"
+	"github.com/chrisbirster/webgamedev/pkg/models"
 
 	"github.com/labstack/echo/v4"
 )
@@ -89,7 +89,7 @@ func HandleBlogIndex(c echo.Context) error {
 	}
 
 	c.Logger().Infof("DATA: %v", data)
-	if err := c.Render(http.StatusOK, "blog-page.html", data); err != nil {
+	if err := c.Render(http.StatusOK, "blog.html", data); err != nil {
 		c.Logger().Error(err)
 		return err
 	}
