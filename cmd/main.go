@@ -28,6 +28,5 @@ func main() {
 	// routes
 	routes.HandleRoutes(e)
 
-	// logger.LogAttrs(context.Background(), slog.LevelInfo, "SERVER", slog.String("PORT", ":42069"))
 	e.Logger.Fatal(e.Start(":42069"))
 }

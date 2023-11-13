@@ -1,13 +1,10 @@
-{{define "content"}}
-<div class="bg-red-400">
-    <h2 class="text-2xl">Latest</h2>
-    <h3>Build Custom Plugins in Vite to Extend your Dev Server</h3>
-    <div>
-        <p>August 21st, 2023</p>
-        <p>UI & COMPONENTS</p>
-    </div>
-    <p>Plugins are a great way to extend the functionality of your dev server. In this article, we'll learn how to build
-        a custom plugin in Vite to add a custom header to our dev server.</p>
-    <button type="button">Learn How</button>
+{{ define "content" }}
+{{ template "section" .}}
+{{ template "tutorials" .}}
+<div class="flex">
+    {{ template "featured-course" .}}
+    {{ template "newsletter" .}}
 </div>
+{{ template "community" .}}
+{{ template "recent-posts" .}}
 {{end}}

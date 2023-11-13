@@ -48,5 +48,5 @@ func (t *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c 
 	} else {
 		c.Logger().Infof("Rendering template '%s' with data: %s", name, string(dataBytes))
 	}
-	return t.tmpl.ExecuteTemplate(w, name, data)
+	return t.tmpl.ExecuteTemplate(w, "main.html", data)
 }

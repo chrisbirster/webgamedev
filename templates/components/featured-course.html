@@ -1,0 +1,11 @@
+{{ define "featured-course" }}
+<div class="relative mt-8 rounded-lg p-4 text-left no-underline items-center w-3/4">
+    <span class="flex items-center justify-between">
+        <h3 class="text-3xl font-extrabold text-center text-orange-500 m-0 sm:text-left">Featured Course</h3>
+        <a href="{{ .Course.Link }}"
+            class="text-lg font-bold text-center text-yellow-500 m-0 sm:text-left hover:text-yellow-600 hover:underline">View
+            all courses</a>
+    </span>
+    <img class="mt-2" src="{{ .Course.Image }}" alt="{{ .Course.Name }}" />
+</div>
+{{ end }}

@@ -50,14 +50,14 @@ func HandleIndex(c echo.Context) error {
 			{Name: "Astro", Link: "/tutorial/astro", Image: "astrojs-icon"},
 		},
 		Community: []models.Community{
-			{Name: "@webgamedev", Link: "#", Image: "xwitter-icon"},
-			{Name: "@webgamedev", Link: "#", Image: "youtube-icon"},
-			{Name: "@webgamedev", Link: "#", Image: "discord-icon"},
-			{Name: "@webgamedev", Link: "#", Image: "github-icon"},
+			{Name: "@webgamedotdev", Link: "https://www.twitter.com/@webgamedotdev", Image: "xwitter-icon"},
+			{Name: "@webgamedotdev", Link: "https://wwww.youtube.com/@webgamedotdev", Image: "youtube-icon"},
+			{Name: "@webgamedotdev", Link: "https://discord.gg/z83Hpc8fEY", Image: "discord-icon"},
+			{Name: "@webgamedotdev", Link: "https://github.com/webgamedotdev", Image: "github-icon"},
 		},
 		Course: models.Course{
-			Name:  "HTMX from scratch",
-			Link:  "/course/htmx-from-scratch",
+			Name:  "Vite Custom Config Plugin",
+			Link:  "#",
 			Image: "/static/youtube-thumbnail-vite-config-plugin.svg",
 		},
 		RecentPosts: []models.Post{
@@ -130,7 +130,7 @@ func HandleIndex(c echo.Context) error {
 	}
 
 	c.Logger().Infof("DATA: %v", data)
-	if err := c.Render(http.StatusOK, "main.html", data); err != nil {
+	if err := c.Render(http.StatusOK, "home.html", data); err != nil {
 		c.Logger().Error(err)
 		return err
 	}
