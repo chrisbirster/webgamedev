@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"database/sql"
 	"net/http"
 
 	"github.com/chrisbirster/webgamedev/pkg/markdown"
@@ -9,7 +10,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func HandleIndex(c echo.Context) error {
+func HandleIndex(c echo.Context, db *sql.DB) error {
 	// markdown content
 	ligma, err := markdown.ParseMarkdownFile("content/emails-with-react.md")
 	if err != nil {

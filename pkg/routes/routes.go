@@ -1,22 +1,23 @@
 package routes
 
 import (
-	"net/http"
+	"database/sql"
 
 	"github.com/labstack/echo/v4"
 )
 
-func HandleRoutes(e *echo.Echo) {
+func HandleRoutes(e *echo.Echo, db *sql.DB) {
+
 	e.GET("/", func(c echo.Context) error {
-		return HandleIndex(c)
+		return HandleIndex(c, db)
 	})
 
 	e.GET("/blog", func(c echo.Context) error {
-		return HandleBlogIndex(c)
+		return HandleBlogIndex(c, db)
 	})
 
-	e.GET("/test", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Test successful")
+	e.GET("/deez", func(c echo.Context) error {
+		return HandleDeez(c, db)
 	})
 
 	// e.GET("/blog/:slug", func(c echo.Context) error {

@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"database/sql"
 	"net/http"
 
 	"github.com/chrisbirster/webgamedev/pkg/models"
@@ -8,7 +9,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func HandleBlogIndex(c echo.Context) error {
+func HandleBlogIndex(c echo.Context, db *sql.DB) error {
 	data := models.Page{
 		Name:        "<WGD/>",
 		MainHeading: "Welcome to my website!",

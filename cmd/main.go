@@ -4,11 +4,13 @@ import (
 	"context"
 	"crypto/tls"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"time"
 
+	"github.com/chrisbirster/webgamedev/pkg/database"
 	"github.com/chrisbirster/webgamedev/pkg/logger"
 	"github.com/chrisbirster/webgamedev/pkg/renderer"
 	"github.com/chrisbirster/webgamedev/pkg/routes"
@@ -45,8 +47,14 @@ func main() {
 	c.HTTP.Port = 42069
 	web := InitWeb()
 
+	// database
+	db, err := database.InitDB("file:ligma.db")
+	if err != nil {
+		log.Fatalf("Error initializing database: %v", err)
+	}
+
 	// routes
-	routes.HandleRoutes(web)
+	routes.HandleRoutes(web, db)
 	// Start the server
 	go func() {
 		srv := http.Server{
