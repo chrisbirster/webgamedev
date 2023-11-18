@@ -41,9 +41,10 @@ func HandleIndex(c echo.Context, db *sql.DB) error {
 			},
 		},
 		NavLinks: []models.Link{
-			{Name: "Courses", Path: "/", IsCurrentPage: true},
-			{Name: "Books", Path: "/about", IsCurrentPage: false},
-			{Name: "Arcade", Path: "/contact", IsCurrentPage: false},
+			{Name: "Courses", Path: "/courses", IsCurrentPage: true},
+			{Name: "Books", Path: "/books", IsCurrentPage: false},
+			{Name: "Arcade", Path: "/arcade", IsCurrentPage: false},
+			{Name: "Blog", Path: "/blog", IsCurrentPage: false},
 		},
 		Tutorials: []models.Tutorial{
 			{Name: "NextJS", Link: "/tutorial/nextjs", Image: "nextjs-icon"},

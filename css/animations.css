@@ -10,3 +10,11 @@
 .slide:hover svg {
     animation: arrow-slide 1.5s linear infinite;
 }
+
+#canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%
+
+    transform: translate(-50%, -50%);
+}

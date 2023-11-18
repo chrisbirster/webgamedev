@@ -3,13 +3,46 @@ package routes
 import (
 	"database/sql"
 	"net/http"
+	"path/filepath"
 
+	"github.com/chrisbirster/webgamedev/pkg/markdown"
 	"github.com/chrisbirster/webgamedev/pkg/models"
 
 	"github.com/labstack/echo/v4"
 )
 
 func HandleBlogIndex(c echo.Context, db *sql.DB) error {
+	contentDirectory := filepath.Join("content")
+	files, err := filepath.Glob(filepath.Join(contentDirectory, "*.md"))
+	if err != nil {
+		// Handle error (e.g., directory not found)
+		return echo.NewHTTPError(http.StatusInternalServerError, "Error reading content directory")
+	}
+
+	var posts []models.Post
+	for _, file := range files {
+		ligma, err := markdown.ParseMarkdownFile(file)
+		if err != nil {
+			// Log the error but continue processing other files
+			c.Logger().Errorf("Error parsing markdown file: %s, %v", file, err)
+			continue
+		}
+
+		post := models.Post{
+			Title:       ligma.Metadata.Title,
+			Description: "provide a better excerpt here",
+			MetaData: models.MetaData{
+				Arthor: models.Arthor{
+					Name: ligma.Metadata.Author,
+				},
+				Date:       ligma.Metadata.Published,
+				Categories: ligma.Metadata.Category,
+				Tags:       ligma.Metadata.Tags,
+			},
+		}
+		posts = append(posts, post)
+	}
+
 	data := models.Page{
 		Name:        "<WGD/>",
 		MainHeading: "Welcome to my website!",
@@ -20,74 +53,9 @@ func HandleBlogIndex(c echo.Context, db *sql.DB) error {
 			{Name: "Books", Path: "/about", IsCurrentPage: false},
 			{Name: "Arcade", Path: "/contact", IsCurrentPage: false},
 		},
-		Posts: []models.Post{
-			{
-				Title:       "Extend Vite's Config. Customize Your Development Experience.",
-				Description: "Delve into the world of Vite and unlock the full potential of your development server. Learn how to take control of Vite's powerful features to streamline your workflow, enhance performance, and tailor the server to your project's specific needs. Perfect for developers looking to elevate their Vite experience!",
-				MetaData: models.MetaData{
-					Arthor: models.Arthor{
-						Name: "GM",
-						Link: "https://www.google.com",
-					},
-					Date:       "2023-11-11",
-					Categories: []string{"Front End", "Development"},
-					Tags:       []string{"JavaScript", "Vite", "Configuration"},
-				},
-			},
-			{
-				Title:       "Extend Vite's Config. Customize Your Development Experience.",
-				Description: "Delve into the world of Vite and unlock the full potential of your development server. Learn how to take control of Vite's powerful features to streamline your workflow, enhance performance, and tailor the server to your project's specific needs. Perfect for developers looking to elevate their Vite experience!",
-				MetaData: models.MetaData{
-					Arthor: models.Arthor{
-						Name: "GM",
-						Link: "https://www.google.com",
-					},
-					Date:       "2023-11-11",
-					Categories: []string{"Front End", "Development"},
-					Tags:       []string{"JavaScript", "Vite", "Configuration"},
-				},
-			},
-			{
-				Title:       "Extend Vite's Config. Customize Your Development Experience.",
-				Description: "Delve into the world of Vite and unlock the full potential of your development server. Learn how to take control of Vite's powerful features to streamline your workflow, enhance performance, and tailor the server to your project's specific needs. Perfect for developers looking to elevate their Vite experience!",
-				MetaData: models.MetaData{
-					Arthor: models.Arthor{
-						Name: "GM",
-						Link: "https://www.google.com",
-					},
-					Date:       "2023-11-11",
-					Categories: []string{"Front End", "Development"},
-					Tags:       []string{"JavaScript", "Vite", "Configuration"},
-				},
-			},
-			{
-				Title:       "Extend Vite's Config. Customize Your Development Experience.",
-				Description: "Delve into the world of Vite and unlock the full potential of your development server. Learn how to take control of Vite's powerful features to streamline your workflow, enhance performance, and tailor the server to your project's specific needs. Perfect for developers looking to elevate their Vite experience!",
-				MetaData: models.MetaData{
-					Arthor: models.Arthor{
-						Name: "GM",
-						Link: "https://www.google.com",
-					},
-					Date:       "2023-11-11",
-					Categories: []string{"Front End", "Development"},
-					Tags:       []string{"JavaScript", "Vite", "Configuration"},
-				},
-			},
-			{
-				Title:       "Extend Vite's Config. Customize Your Development Experience.",
-				Description: "Delve into the world of Vite and unlock the full potential of your development server. Learn how to take control of Vite's powerful features to streamline your workflow, enhance performance, and tailor the server to your project's specific needs. Perfect for developers looking to elevate their Vite experience!",
-				MetaData: models.MetaData{
-					Arthor: models.Arthor{
-						Name: "GM",
-						Link: "https://www.google.com",
-					},
-					Date:       "2023-11-11",
-					Categories: []string{"Front End", "Development"},
-					Tags:       []string{"JavaScript", "Vite", "Configuration"},
-				},
-			},
-		},
+		Posts: posts,
 	}
+
 	c.Logger().Infof("about to call c.Render with DATA: %v", data)
 	return c.Render(http.StatusOK, "blog", data)
 }

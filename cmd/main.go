@@ -88,6 +88,11 @@ func main() {
 	<-quit
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
+
+	if err := db.Close(); err != nil {
+		web.Logger.Fatal(err)
+	}
+
 	if err := web.Shutdown(ctx); err != nil {
 		web.Logger.Fatal(err)
 	}
@@ -101,8 +106,11 @@ func InitWeb() *echo.Echo {
 
 	e.Renderer = renderer.NewTemplateRenderer()
 
+	//
+
 	// static files
 	e.Static("/css", "css")
 	e.Static("/static", "static")
+	e.Static("/scripts", "scripts")
 	return e
 }

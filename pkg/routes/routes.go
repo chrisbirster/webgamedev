@@ -20,7 +20,12 @@ func HandleRoutes(e *echo.Echo, db *sql.DB) {
 		return HandleDeez(c, db)
 	})
 
-	// e.GET("/blog/:slug", func(c echo.Context) error {
-	// 	return HandleBlogPost(c)
-	// })
+	e.GET("/arcade", func(c echo.Context) error {
+		return HandleArcade(c)
+	})
+
+	e.GET("/blog/:slug", func(c echo.Context) error {
+		var slug string = c.Param("slug")
+		return HandleBlogPost(c, db, slug)
+	})
 }
