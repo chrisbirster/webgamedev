@@ -6,6 +6,5 @@ import (
 )
 
 func HandleArcade(c echo.Context) error {
-
 	return c.Render(http.StatusOK, "arcade", nil)
 }
