@@ -1,17 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    './templates/**/*.html',
-  ],
+  content: ["./pkg/templates/**/*.html"],
   theme: {
-    extend: {
-    },
+    extend: {},
   },
   variants: {
     extend: {
-      margin: ['first', 'last'],
+      margin: ["first", "last"],
     },
   },
   plugins: [],
 }
-
