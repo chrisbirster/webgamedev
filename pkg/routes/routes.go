@@ -28,4 +28,5 @@ func HandleRoutes(e *echo.Echo, db *sql.DB) {
 		var slug string = c.Param("slug")
 		return HandleBlogPost(c, db, slug)
 	})
+
 }

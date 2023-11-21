@@ -5,7 +5,9 @@ go 1.21.0
 require (
 	github.com/Masterminds/sprig/v3 v3.2.3
 	github.com/labstack/echo/v4 v4.11.3
+	github.com/libsql/libsql-client-go v0.0.0-20231026052543-fce76c0f39a7
 	gopkg.in/yaml.v2 v2.4.0
+	modernc.org/sqlite v1.27.0
 )
 
 require (
@@ -20,7 +22,6 @@ require (
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
 	github.com/klauspost/compress v1.15.15 // indirect
 	github.com/labstack/gommon v0.4.0 // indirect
-	github.com/libsql/libsql-client-go v0.0.0-20231026052543-fce76c0f39a7 // indirect
 	github.com/libsql/sqlite-antlr4-parser v0.0.0-20230802215326-5cb5bb604475 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.19 // indirect
@@ -46,7 +47,6 @@ require (
 	modernc.org/mathutil v1.6.0 // indirect
 	modernc.org/memory v1.7.2 // indirect
 	modernc.org/opt v0.1.3 // indirect
-	modernc.org/sqlite v1.27.0 // indirect
 	modernc.org/strutil v1.1.3 // indirect
 	modernc.org/token v1.0.1 // indirect
 	nhooyr.io/websocket v1.8.7 // indirect
