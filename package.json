@@ -1,5 +1,5 @@
 {
-  "name": "auth-jd-app",
+  "name": "webgamedev",
   "scripts": {
     "dev": "vinxi dev",
     "build": "vinxi build",
@@ -41,3 +41,4 @@
     "node": ">=16"
   }
 }
+
