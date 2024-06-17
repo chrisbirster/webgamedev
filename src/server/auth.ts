@@ -14,8 +14,8 @@ export const authOptions: SolidAuthConfig = {
   adapter: DrizzleAdapter(db),
   providers: [
     Github({
-      clientId: serverEnv.TEST_GITHUB_CLIENT_ID,
-      clientSecret: serverEnv.TEST_GITHUB_CLIENT_SECRET,
+      clientId: serverEnv.DEV_GITHUB_CLIENT_ID,
+      clientSecret: serverEnv.DEV_GITHUB_CLIENT_SECRET,
     }),
   ],
   debug: false,
